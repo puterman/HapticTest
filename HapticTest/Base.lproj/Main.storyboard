@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K93-0P-8DU">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K93-0P-8DU" customClass="UIControl">
                                 <rect key="frame" x="87" y="389" width="240" height="128"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="systemPurpleColor"/>
                                 <constraints>
@@ -33,7 +33,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="buttonView" destination="8bC-Xf-vdC" id="gmA-KW-kp7"/>
+                        <outlet property="hapticButton" destination="K93-0P-8DU" id="SHU-P4-4YM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

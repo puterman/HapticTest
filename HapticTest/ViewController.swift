@@ -11,7 +11,7 @@ import CoreHaptics
 
 class ViewController: UIViewController {
 
-    @IBOutlet var buttonView: UIView!
+    @IBOutlet var hapticButton: UIControl!
 
     var hapticEngine: CHHapticEngine?
     var hapticPlayer: CHHapticPatternPlayer?
@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     let hapticDict = [
         CHHapticPattern.Key.pattern: [
             [CHHapticPattern.Key.event: [
-                CHHapticPattern.Key.eventType: CHHapticEvent.EventType.hapticContinuous,
+                CHHapticPattern.Key.eventType: CHHapticEvent.EventType.hapticTransient,
                 CHHapticPattern.Key.time: 0.001,
                 CHHapticPattern.Key.eventDuration: 1.0]
             ]
@@ -54,14 +54,23 @@ class ViewController: UIViewController {
 
         self.hapticPlayer = player
 
+        hapticButton.addTarget(self, action: #selector(dragInside), for: .touchDragInside)
+    }
 
+    @objc
+    private func dragInside() {
+        print("dragInside")
+        playHaptic()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+    }
+
+    func playHaptic() {
         do {
-            try hapticPlayer?.start(atTime: 5.0)
+            try hapticPlayer?.start(atTime: 0)
         } catch let error {
             print("hapticPlayer start failed: \(error.localizedDescription)")
         }
