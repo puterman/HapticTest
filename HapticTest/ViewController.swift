@@ -15,6 +15,9 @@ class ViewController: UIViewController {
 
     var hapticEngine: CHHapticEngine?
     var hapticPlayer: CHHapticPatternPlayer?
+    var continuousHapticPlayer: CHHapticPatternPlayer?
+
+    var lastPoint: CGPoint?
 
     let hapticDict = [
         CHHapticPattern.Key.pattern: [
@@ -26,9 +29,18 @@ class ViewController: UIViewController {
         ]
     ]
 
+    let continuousHapticDict = [
+        CHHapticPattern.Key.pattern: [
+            [CHHapticPattern.Key.event: [
+                CHHapticPattern.Key.eventType: CHHapticEvent.EventType.hapticContinuous,
+                CHHapticPattern.Key.time: 0.001,
+                CHHapticPattern.Key.eventDuration: 1000]
+            ]
+        ]
+    ]
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
 
         do {
             hapticEngine = try CHHapticEngine()
@@ -46,15 +58,54 @@ class ViewController: UIViewController {
             print("Failed to initialize pattern")
             return
         }
-
         guard let player = try? hapticEngine?.makePlayer(with: pattern) else {
             print("Failed to create player")
             return
         }
-
         self.hapticPlayer = player
 
-        hapticButton.addTarget(self, action: #selector(dragInside), for: .touchDragInside)
+        guard let continuousPattern = try? CHHapticPattern(dictionary: continuousHapticDict) else {
+            print("Failed to initialize continuous pattern")
+            return
+        }
+        guard let continuousPlayer = try? hapticEngine?.makePlayer(with: continuousPattern) else {
+            print("Failed to create player for continuous pattern")
+            return
+        }
+        self.continuousHapticPlayer = continuousPlayer
+
+//        hapticButton.addTarget(self, action: #selector(dragInside), for: .touchDragInside)
+
+        let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(pan(recognizer:)))
+        view.addGestureRecognizer(panRecognizer)
+    }
+
+    @objc
+    private func pan(recognizer: UIPanGestureRecognizer) {
+        let point = recognizer.location(in: view)
+
+        if recognizer.state == .began {
+            lastPoint = nil
+            print("STARTING")
+            try? continuousHapticPlayer?.start(atTime: 0)
+        } else if recognizer.state == .ended {
+            print("STOPPING")
+            try? continuousHapticPlayer?.stop(atTime: 0)
+        }
+
+        if lastPoint != nil {
+            let xDistance = abs(lastPoint!.x - point.x)
+            let yDistance = abs(lastPoint!.y - point.y)
+            let distance = sqrt(xDistance * xDistance + yDistance * yDistance)
+//            print("distance: \(distance)")
+
+            let value = Float(distance) / Float(10.0)
+            print("value: \(value)")
+            let parameter = CHHapticDynamicParameter(parameterID: .hapticIntensityControl, value: value, relativeTime: 0)
+            try? continuousHapticPlayer?.sendParameters([parameter], atTime: 0)
+        }
+
+        lastPoint = point
     }
 
     @objc
