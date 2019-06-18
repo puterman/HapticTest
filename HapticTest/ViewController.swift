@@ -76,8 +76,8 @@ class ViewController: UIViewController {
 
 //        hapticButton.addTarget(self, action: #selector(dragInside), for: .touchDragInside)
 
-        let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(pan(recognizer:)))
-        view.addGestureRecognizer(panRecognizer)
+//        let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(pan(recognizer:)))
+//        view.addGestureRecognizer(panRecognizer)
     }
 
     @objc
