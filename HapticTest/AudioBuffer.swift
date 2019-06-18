@@ -20,7 +20,7 @@ class AudioBuffer {
 
         for i in 0..<sampleCount {
             channel1.append(Int32(sample[Int(i) * 2]))
-            channel2.append(Int32(sample[Int(i) * 2] + 1))
+            channel2.append(Int32(sample[Int(i) * 2 + 1]))
         }
 
         samples.0 = channel1
