@@ -14,6 +14,8 @@
 		21DA50A722B777290080EF05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21DA50A622B777290080EF05 /* Assets.xcassets */; };
 		21DA50AA22B777290080EF05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21DA50A822B777290080EF05 /* LaunchScreen.storyboard */; };
 		21DA50B222B8F5060080EF05 /* test.ahap in Resources */ = {isa = PBXBuildFile; fileRef = 21DA50B122B8F5050080EF05 /* test.ahap */; };
+		21DA50B522B8FE4F0080EF05 /* AudioBuffer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DA50B322B8FE4F0080EF05 /* AudioBuffer.swift */; };
+		21DA50B622B8FE4F0080EF05 /* AudioFileUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21DA50B422B8FE4F0080EF05 /* AudioFileUtilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		21DA50A922B777290080EF05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		21DA50AB22B777290080EF05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		21DA50B122B8F5050080EF05 /* test.ahap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.ahap; sourceTree = "<group>"; };
+		21DA50B322B8FE4F0080EF05 /* AudioBuffer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioBuffer.swift; sourceTree = "<group>"; };
+		21DA50B422B8FE4F0080EF05 /* AudioFileUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AudioFileUtilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +62,8 @@
 		21DA509C22B777260080EF05 /* HapticTest */ = {
 			isa = PBXGroup;
 			children = (
+				21DA50B322B8FE4F0080EF05 /* AudioBuffer.swift */,
+				21DA50B422B8FE4F0080EF05 /* AudioFileUtilities.swift */,
 				21DA50B122B8F5050080EF05 /* test.ahap */,
 				21DA509D22B777260080EF05 /* AppDelegate.swift */,
 				21DA509F22B777260080EF05 /* SceneDelegate.swift */,
@@ -142,6 +148,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				21DA50B622B8FE4F0080EF05 /* AudioFileUtilities.swift in Sources */,
+				21DA50B522B8FE4F0080EF05 /* AudioBuffer.swift in Sources */,
 				21DA50A222B777260080EF05 /* ViewController.swift in Sources */,
 				21DA509E22B777260080EF05 /* AppDelegate.swift in Sources */,
 				21DA50A022B777260080EF05 /* SceneDelegate.swift in Sources */,
