@@ -176,7 +176,7 @@ class ViewController: UIViewController {
 
     // MARK: - Audio to AHAP experiment
     func loadWav() -> AudioBuffer? {
-        guard let url = Bundle.main.url(forResource: "drums16", withExtension: "wav"),
+        guard let url = Bundle.main.url(forResource: "beat", withExtension: "wav"),
             let audioBuffer = loadFile(url: url) else {
                 print("Error loading wav")
                 return nil
@@ -196,7 +196,7 @@ class ViewController: UIViewController {
             var count: Int = 0
             for j in 0..<Int(samplesPerDownsampledSample) {
                 let s = audioBuffer.samples.0[i * samplesPerDownsampledSample + j]
-                if s > 0 {
+                if s >= 0 {
                     sample += s
                     count += 1
                 }
@@ -239,9 +239,15 @@ class ViewController: UIViewController {
         var controlPoints = [CHHapticParameterCurve.ControlPoint]()
 
         var offset = 0.0
+        var last = Float(0)
         for value in downsampled {
-            let controlPoint = CHHapticParameterCurve.ControlPoint(relativeTime: offset, value: value)
-            controlPoints.append(controlPoint)
+            if value != last {
+                let controlPoint = CHHapticParameterCurve.ControlPoint(relativeTime: offset, value: value)
+                controlPoints.append(controlPoint)
+                print("value: \(value), offset: \(offset)")
+                last = value
+            }
+
             offset += sampleDuration
         }
 
