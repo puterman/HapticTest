@@ -16,6 +16,8 @@ class ViewController: UIViewController {
     var hapticEngine: CHHapticEngine?
     var hapticPlayer: CHHapticPatternPlayer?
     var continuousHapticPlayer: CHHapticPatternPlayer?
+    var ahapData: Data?
+
 
     var lastPoint: CGPoint?
 
@@ -74,10 +76,26 @@ class ViewController: UIViewController {
         }
         self.continuousHapticPlayer = continuousPlayer
 
+
+        guard let url = Bundle.main.url(forResource: "test", withExtension: "ahap"),
+            let ahapData = try? Data.init(contentsOf: url) else {
+            print("Error loading ahap data")
+            return
+        }
+        self.ahapData = ahapData
+
 //        hapticButton.addTarget(self, action: #selector(dragInside), for: .touchDragInside)
 
 //        let panRecognizer = UIPanGestureRecognizer(target: self, action: #selector(pan(recognizer:)))
 //        view.addGestureRecognizer(panRecognizer)
+
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
+        view.addGestureRecognizer(tapRecognizer)
+    }
+
+    @objc
+    private func tapped() {
+        playAhap()
     }
 
     @objc
@@ -124,6 +142,14 @@ class ViewController: UIViewController {
             try hapticPlayer?.start(atTime: 0)
         } catch let error {
             print("hapticPlayer start failed: \(error.localizedDescription)")
+        }
+    }
+
+    func playAhap() {
+        do {
+            try hapticEngine?.playPattern(from: ahapData!)
+        } catch let error {
+            print("Failed to play haptic from ahap: \(error.localizedDescription)")
         }
     }
 

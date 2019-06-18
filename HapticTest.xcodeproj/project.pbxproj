@@ -13,6 +13,7 @@
 		21DA50A522B777260080EF05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21DA50A322B777260080EF05 /* Main.storyboard */; };
 		21DA50A722B777290080EF05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21DA50A622B777290080EF05 /* Assets.xcassets */; };
 		21DA50AA22B777290080EF05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21DA50A822B777290080EF05 /* LaunchScreen.storyboard */; };
+		21DA50B222B8F5060080EF05 /* test.ahap in Resources */ = {isa = PBXBuildFile; fileRef = 21DA50B122B8F5050080EF05 /* test.ahap */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		21DA50A622B777290080EF05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		21DA50A922B777290080EF05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		21DA50AB22B777290080EF05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		21DA50B122B8F5050080EF05 /* test.ahap */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.ahap; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 		21DA509C22B777260080EF05 /* HapticTest */ = {
 			isa = PBXGroup;
 			children = (
+				21DA50B122B8F5050080EF05 /* test.ahap */,
 				21DA509D22B777260080EF05 /* AppDelegate.swift */,
 				21DA509F22B777260080EF05 /* SceneDelegate.swift */,
 				21DA50A122B777260080EF05 /* ViewController.swift */,
@@ -126,6 +129,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				21DA50AA22B777290080EF05 /* LaunchScreen.storyboard in Resources */,
+				21DA50B222B8F5060080EF05 /* test.ahap in Resources */,
 				21DA50A722B777290080EF05 /* Assets.xcassets in Resources */,
 				21DA50A522B777260080EF05 /* Main.storyboard in Resources */,
 			);
