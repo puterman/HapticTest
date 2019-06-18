@@ -76,6 +76,11 @@ class ViewController: UIViewController {
         }
         self.continuousHapticPlayer = continuousPlayer
 
+        guard let wav = loadWav() else {
+            print("Error loading wav")
+            return
+        }
+        let meanBuffer = downsampledMono(for: wav, rate: 10)
 
         guard let url = Bundle.main.url(forResource: "test", withExtension: "ahap"),
             let ahapData = try? Data.init(contentsOf: url) else {
@@ -153,5 +158,53 @@ class ViewController: UIViewController {
         }
     }
 
+    // MARK: - Audio to AHAP experiment
+    func loadWav() -> AudioBuffer? {
+        guard let url = Bundle.main.url(forResource: "drums16", withExtension: "wav"),
+            let audioBuffer = loadFile(url: url) else {
+                print("Error loading wav")
+                return nil
+        }
+
+        return audioBuffer
+    }
+
+    func downsampledMono(for audioBuffer: AudioBuffer, rate: Int) -> [Float] {
+        var outputBuffer = [Float]()
+        let samplesPerDownsampledSample = Int(44100.0 / Double(rate))
+        let outputSampleCount = Int(Double(audioBuffer.sampleCount()) / Double(samplesPerDownsampledSample))
+
+
+        for i in 0..<Int(outputSampleCount) {
+            var sample: Int32 = 0
+            var count: Int = 0
+            for j in 0..<Int(samplesPerDownsampledSample) {
+                let s = audioBuffer.samples.0[i * samplesPerDownsampledSample + j]
+                if s > 0 {
+                    sample += s
+                    count += 1
+                }
+            }
+            let meanSample = Float(sample) / Float(count)
+            outputBuffer.append(meanSample / Float(0x8000))
+        }
+
+        var minValue = outputBuffer[0]
+        var maxValue = outputBuffer[0]
+
+        for val in outputBuffer {
+            minValue = min(minValue, val)
+            maxValue = max(maxValue, val)
+        }
+
+        let range = maxValue - minValue
+
+        for i in 0..<outputBuffer.count {
+            let val = outputBuffer[i]
+            outputBuffer[i] = (val - minValue) * (1.0 / range)
+        }
+
+        return outputBuffer
+    }
 }
 
