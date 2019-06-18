@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     var hapticEngine: CHHapticEngine?
     var hapticPlayer: CHHapticPatternPlayer?
     var continuousHapticPlayer: CHHapticPatternPlayer?
+    var patternPlayer: CHHapticPatternPlayer?
     var ahapData: Data?
 
 
@@ -56,11 +57,11 @@ class ViewController: UIViewController {
             }
         })
 
-        guard let pattern = try? CHHapticPattern(dictionary: hapticDict) else {
+        guard let _pattern = try? CHHapticPattern(dictionary: hapticDict) else {
             print("Failed to initialize pattern")
             return
         }
-        guard let player = try? hapticEngine?.makePlayer(with: pattern) else {
+        guard let player = try? hapticEngine?.makePlayer(with: _pattern) else {
             print("Failed to create player")
             return
         }
@@ -80,7 +81,13 @@ class ViewController: UIViewController {
             print("Error loading wav")
             return
         }
-        let meanBuffer = downsampledMono(for: wav, rate: 10)
+        let meanBuffer = downsampledMono(for: wav, rate: 50)
+        let p = pattern(for: meanBuffer, rate: 50)
+        guard let patternPlayer = try? hapticEngine?.makePlayer(with: p) else {
+            print("Error creating pattern based on sample")
+            return
+        }
+        self.patternPlayer = patternPlayer
 
         guard let url = Bundle.main.url(forResource: "test", withExtension: "ahap"),
             let ahapData = try? Data.init(contentsOf: url) else {
@@ -100,7 +107,8 @@ class ViewController: UIViewController {
 
     @objc
     private func tapped() {
-        playAhap()
+//        playAhap()
+        playWavPattern()
     }
 
     @objc
@@ -158,6 +166,14 @@ class ViewController: UIViewController {
         }
     }
 
+    func playWavPattern() {
+        do {
+            try patternPlayer?.start(atTime: 0)
+        } catch let error {
+            print("Failed to play haptic from wav: \(error.localizedDescription)")
+        }
+    }
+
     // MARK: - Audio to AHAP experiment
     func loadWav() -> AudioBuffer? {
         guard let url = Bundle.main.url(forResource: "drums16", withExtension: "wav"),
@@ -205,6 +221,38 @@ class ViewController: UIViewController {
         }
 
         return outputBuffer
+    }
+
+    func pattern(for downsampled: [Float], rate: Int) -> CHHapticPattern {
+        let sampleDuration = 1.0 / Double(rate)
+
+        let parameterSharpness = CHHapticEventParameter(parameterID: .hapticSharpness, value: 1.0)
+        let parameterAttackTime = CHHapticEventParameter(parameterID: .attackTime, value: 0)
+        let parameterDecayTime = CHHapticEventParameter(parameterID: .decayTime, value: 0)
+        let parameterReleaseTime = CHHapticEventParameter(parameterID: .releaseTime, value: 0)
+        let parameters = [parameterSharpness, parameterAttackTime, parameterDecayTime, parameterReleaseTime]
+
+        let duration = ceil(Double(downsampled.count) / Double(rate))
+
+        let event = CHHapticEvent(eventType: .hapticContinuous, parameters: parameters, relativeTime: 0, duration: duration)
+
+        var controlPoints = [CHHapticParameterCurve.ControlPoint]()
+
+        var offset = 0.0
+        for value in downsampled {
+            let controlPoint = CHHapticParameterCurve.ControlPoint(relativeTime: offset, value: value)
+            controlPoints.append(controlPoint)
+            offset += sampleDuration
+        }
+
+        let curve = CHHapticParameterCurve(parameterID: .hapticIntensityControl, controlPoints: controlPoints, relativeTime: 0)
+
+        guard let pattern = try? CHHapticPattern(events: [event], parameterCurves: [curve]) else {
+            print("failed to create pattern")
+            exit(1)
+        }
+
+        return pattern
     }
 }
 
