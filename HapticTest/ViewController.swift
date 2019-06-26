@@ -42,6 +42,17 @@ class ViewController: UIViewController {
         ]
     ]
 
+    let audioHapticDict = [
+        CHHapticPattern.Key.pattern: [
+            [CHHapticPattern.Key.event: [
+                CHHapticPattern.Key.eventType: CHHapticEvent.EventType.audioCustom,
+                CHHapticPattern.Key.time: 0,
+                CHHapticPattern.Key.eventWaveformPath: "beat.wav"
+                ]
+            ]
+        ]
+    ]
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -236,6 +247,7 @@ class ViewController: UIViewController {
 
         let event = CHHapticEvent(eventType: .hapticContinuous, parameters: parameters, relativeTime: 0, duration: duration)
 
+        var bagOfControlPoints = [[CHHapticParameterCurve.ControlPoint]]()
         var controlPoints = [CHHapticParameterCurve.ControlPoint]()
 
         var offset = 0.0
@@ -244,6 +256,10 @@ class ViewController: UIViewController {
             if value != last {
                 let controlPoint = CHHapticParameterCurve.ControlPoint(relativeTime: offset, value: value)
                 controlPoints.append(controlPoint)
+                if controlPoints.count == 12 {
+                    bagOfControlPoints.append(controlPoints)
+                    controlPoints = [CHHapticParameterCurve.ControlPoint]()
+                }
                 print("value: \(value), offset: \(offset)")
                 last = value
             }
@@ -251,14 +267,28 @@ class ViewController: UIViewController {
             offset += sampleDuration
         }
 
-        let curve = CHHapticParameterCurve(parameterID: .hapticIntensityControl, controlPoints: controlPoints, relativeTime: 0)
+        if controlPoints.count > 0 {
+            bagOfControlPoints.append(controlPoints)
+        }
 
-        guard let pattern = try? CHHapticPattern(events: [event], parameterCurves: [curve]) else {
+        var curves = [CHHapticParameterCurve]()
+        for points in bagOfControlPoints {
+            let curve = CHHapticParameterCurve(parameterID: .hapticIntensityControl, controlPoints: points, relativeTime: 0)
+            curves.append(curve)
+        }
+
+        guard let audioPattern = try? CHHapticPattern(dictionary: audioHapticDict) else {
+            print("Failed to create audio pattern")
+            exit(1)
+        }
+
+        guard let pattern = try? CHHapticPattern(events: [event], parameterCurves: curves) else {
             print("failed to create pattern")
             exit(1)
         }
 
         return pattern
+//        return audioPattern
     }
 }
 
