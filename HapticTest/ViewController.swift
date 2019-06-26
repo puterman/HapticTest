@@ -92,8 +92,8 @@ class ViewController: UIViewController {
             print("Error loading wav")
             return
         }
-        let meanBuffer = downsampledMono(for: wav, rate: 50)
-        let p = pattern(for: meanBuffer, rate: 50)
+        let meanBuffer = downsampledMono(for: wav, rate: 100)
+        let p = pattern(for: meanBuffer, rate: 100)
         guard let patternPlayer = try? hapticEngine?.makePlayer(with: p) else {
             print("Error creating pattern based on sample")
             return
@@ -187,7 +187,7 @@ class ViewController: UIViewController {
 
     // MARK: - Audio to AHAP experiment
     func loadWav() -> AudioBuffer? {
-        guard let url = Bundle.main.url(forResource: "beat", withExtension: "wav"),
+        guard let url = Bundle.main.url(forResource: "drums16", withExtension: "wav"),
             let audioBuffer = loadFile(url: url) else {
                 print("Error loading wav")
                 return nil
