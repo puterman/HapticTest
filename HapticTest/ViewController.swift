@@ -185,7 +185,7 @@ class ViewController: UIViewController {
         }
     }
 
-    // MARK: - Audio to AHAP experiment
+    // MARK: - Audio to Haptic experiment
     func loadWav() -> AudioBuffer? {
         guard let url = Bundle.main.url(forResource: "drums16", withExtension: "wav"),
             let audioBuffer = loadFile(url: url) else {
