@@ -212,7 +212,7 @@ class ViewController: UIViewController {
                     count += 1
                 }
             }
-            let meanSample = Float(sample) / Float(count)
+            let meanSample = count > 0 ? Float(sample) / Float(count) : 0
             outputBuffer.append(meanSample / Float(0x8000))
         }
 
