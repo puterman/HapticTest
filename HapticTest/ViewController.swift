@@ -9,6 +9,13 @@
 import UIKit
 import CoreHaptics
 
+// FIXME: examples to build
+// - Click when drawing finger over line.
+// - Harder click when drawing finger over line if touch pressure is applied.
+// - Click on entry/exit + vibration (that gets stronger with speed) on drag inside rect to simulate drag resistance.
+//   Or maybe there shouldn't be a click, but a short ramp-up around the rect.
+// - Synchronized audio and haptic feedback.
+
 class ViewController: UIViewController {
 
     @IBOutlet var hapticButton: UIControl!
