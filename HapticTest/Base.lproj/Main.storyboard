@@ -8,10 +8,10 @@
         <capability name="iOS 13.0 system colors" minToolsVersion="11.0"/>
     </dependencies>
     <scenes>
-        <!--Item-->
+        <!--Wave-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="HapticTest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Wave" id="BYZ-38-t0r" customClass="ViewController" customModule="HapticTest" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -41,6 +41,39 @@
             </objects>
             <point key="canvasLocation" x="139" y="138"/>
         </scene>
+        <!--Line-->
+        <scene sceneID="RhD-Kw-CP1">
+            <objects>
+                <viewController title="Line" id="p21-a6-1eh" customClass="LineViewController" customModule="HapticTest" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5gf-iM-ITb">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VI4-V9-7zq" userLabel="Line">
+                                <rect key="frame" x="0.0" y="428" width="414" height="1"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="N78-QM-vr2"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="VI4-V9-7zq" firstAttribute="centerY" secondItem="fmh-Ok-DHm" secondAttribute="centerY" id="8RP-7m-78n"/>
+                            <constraint firstItem="VI4-V9-7zq" firstAttribute="leading" secondItem="fmh-Ok-DHm" secondAttribute="leading" id="Ioh-vr-7Su"/>
+                            <constraint firstItem="fmh-Ok-DHm" firstAttribute="trailing" secondItem="VI4-V9-7zq" secondAttribute="trailing" id="l8s-8W-az4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="fmh-Ok-DHm"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="o5B-ds-YZK"/>
+                    <connections>
+                        <outlet property="line" destination="VI4-V9-7zq" id="Tc7-1w-Jgx"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ngd-va-Dzj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="860.49107142857144"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="UKl-9U-SIo">
             <objects>
@@ -52,6 +85,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="AoL-W6-UXc"/>
+                        <segue destination="p21-a6-1eh" kind="relationship" relationship="viewControllers" id="tkG-lN-12b"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YXs-ZD-PAj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -63,6 +63,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        tabBarItem.title = "Wave"
+
         do {
             hapticEngine = try CHHapticEngine()
         } catch let error {
