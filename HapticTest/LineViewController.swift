@@ -26,7 +26,8 @@ class LineViewController: UIViewController {
             }
         })
 
-        let event = CHHapticEvent(eventType: .hapticTransient, parameters: [], relativeTime: 0, duration: 0.01)
+        let intensityParameter = CHHapticEventParameter(parameterID: .hapticIntensity, value: 0.3)
+        let event = CHHapticEvent(eventType: .hapticTransient, parameters: [intensityParameter], relativeTime: 0, duration: 0.01)
 
         guard let pattern = try? CHHapticPattern(events: [event], parameterCurves: []) else {
             print("Error creating pattern")
