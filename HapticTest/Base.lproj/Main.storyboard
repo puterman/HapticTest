@@ -5,7 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14766.15"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
-        <capability name="iOS 13.0 system colors" minToolsVersion="11.0"/>
     </dependencies>
     <scenes>
         <!--Wave-->
@@ -15,27 +14,10 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K93-0P-8DU" customClass="UIControl">
-                                <rect key="frame" x="87" y="364.5" width="240" height="128"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="systemPurpleColor"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="240" id="e4c-Qc-R63"/>
-                                    <constraint firstAttribute="height" constant="128" id="j2A-GR-8DS"/>
-                                </constraints>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <constraints>
-                            <constraint firstItem="K93-0P-8DU" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Twe-z9-psU"/>
-                            <constraint firstItem="K93-0P-8DU" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="YRW-ji-A69"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="MDY-Xm-CBK"/>
-                    <connections>
-                        <outlet property="hapticButton" destination="K93-0P-8DU" id="SHU-P4-4YM"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

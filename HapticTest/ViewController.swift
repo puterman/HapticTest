@@ -18,8 +18,6 @@ import CoreHaptics
 
 class ViewController: UIViewController {
 
-    @IBOutlet var hapticButton: UIControl!
-
     var hapticEngine: CHHapticEngine?
     var hapticPlayer: CHHapticPatternPlayer?
     var continuousHapticPlayer: CHHapticPatternPlayer?
