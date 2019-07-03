@@ -64,6 +64,11 @@ class LineViewController: UIViewController {
                 } catch let error {
                     print("Error playing pattern: \(error.localizedDescription)")
                 }
+
+                line.backgroundColor = .yellow
+                UIView.animate(withDuration: 0.5) {
+                    self.line.backgroundColor = .black
+                }
             }
 
             lastYPos = yPos
